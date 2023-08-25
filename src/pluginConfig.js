@@ -137,7 +137,7 @@ module.exports = {
       category: "general",
       forward: "Enqueue",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [
         {
           id: "value",
@@ -154,7 +154,7 @@ module.exports = {
       category: "general",
       forward: "EnqueueWithPiority",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [
         {
           id: "value",
@@ -177,7 +177,7 @@ module.exports = {
       category: "general",
       forward: "Dequeue",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       listName: "Dequeue",
       displayText: "Remove first item from queue.",
@@ -187,7 +187,7 @@ module.exports = {
       category: "general",
       forward: "Clear",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       listName: "Clear",
       displayText: "Clear queue.",
@@ -197,12 +197,29 @@ module.exports = {
       category: "general",
       forward: "Shuffle",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       listName: "Shuffle",
       displayText: "Shuffle queue.",
       description: "Randomly shuffles queue.",
-    }
+    },
+    LoadFromJSON: {
+      category: "general",
+      forward: "LoadFromJSON",
+      autoScriptInterface: true,
+      highlight: false,
+      params: [
+        {
+          id: "json",
+          name: "JSON",
+          desc: "The JSON string to load.",
+          type: "string",
+        }
+      ],
+      listName: "Load from JSON",
+      displayText: "Load queue from JSON [i]{0}[/i].",
+      description: "Loads the queue from a JSON string.",
+    },
     /*
     SampleAction: {
       // The category of the action as it appears in the add action dialog
@@ -223,7 +240,7 @@ module.exports = {
       autoScriptInterface: true,
 
       // Set to true to highlight the action in the add action dialog
-      highlight: true,
+      highlight: false,
 
       // Set to true to hide the action in the interface. False by default if not specified.
       deprecated: false,
@@ -299,7 +316,7 @@ module.exports = {
       category: "general",
       forward: "IsEmpty",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       description: "Returns true if the queue is empty.",
       listName: "Is empty",
@@ -309,7 +326,7 @@ module.exports = {
       category: "general",
       forward: "HasItems",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       description: "Returns true if the queue has items.",
       listName: "Has items",
@@ -319,13 +336,35 @@ module.exports = {
       category: "general",
       forward: "OnLastItemDequeued",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       isTrigger: true,
       params: [],
       description: "Triggered when the last item is dequeued.",
       listName: "On last item dequeued",
       displayText: "On last item dequeued",
     },
+    OnItemQueued: {
+      category: "general",
+      forward: "OnItemQueued",
+      autoScriptInterface: true,
+      highlight: false,
+      isTrigger: true,
+      params: [],
+      description: "Triggered when an item is queued. (can access item from LastQueued expression)",
+      listName: "On item queued",
+      displayText: "On item queued",
+    },
+    OnItemDequeued: {
+      category: "general",
+      forward: "OnItemDequeued",
+      autoScriptInterface: true,
+      highlight: false,
+      isTrigger: true,
+      params: [],
+      description: "Triggered when an item is dequeued. (can access item from LastDequeuedValue expression)",
+      listName: "On item dequeued",
+      displayText: "On item dequeued",
+    }
     /*
     SampleCondition: {
       // The category of the action as it appears in the add condition dialog
@@ -346,7 +385,7 @@ module.exports = {
       autoScriptInterface: true,
 
       // Set to true to highlight the condition in the add condition dialog
-      highlight: true,
+      highlight: false,
 
       // Set to true to hide the condition in the interface. False by default if not specified.
       deprecated: false,
@@ -427,7 +466,7 @@ module.exports = {
       category: "general",
       forward: "LastDequeuedValue",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       returnType: "any",
       description: "Returns the last dequeued value.",
@@ -436,7 +475,7 @@ module.exports = {
       category: "general",
       forward: "Size",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       returnType: "number",
       description: "Returns the size of the queue.",
@@ -445,7 +484,7 @@ module.exports = {
       category: "general",
       forward: "Peek",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       returnType: "any",
       description: "Gets the value at the front of the queue without removing it",
@@ -454,11 +493,38 @@ module.exports = {
       category: "general",
       forward: "Pop",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       params: [],
       returnType: "any",
       description: "Dequeues a value and returns it.",
     },
+    PeekLast: {
+      category: "general",
+      forward: "PeekLast",
+      autoScriptInterface: true,
+      highlight: false,
+      params: [],
+      returnType: "any",
+      description: "Returns the last item in the queue. (does not remove it from queue)",
+    },
+    LastQueued: {
+      category: "general",
+      forward: "LastQueued",
+      autoScriptInterface: true,
+      highlight: false,
+      params: [],
+      returnType: "any",
+      description: "Returns the last queued value.",
+    },
+    AsJSON: {
+      category: "general",
+      forward: "AsJSON",
+      autoScriptInterface: true,
+      highlight: false,
+      params: [],
+      returnType: "string",
+      description: "Returns the queue as a JSON string.",
+    }
     /*
     SampleExpression: {
       // The category of the action as it appears in the expression picker
@@ -478,7 +544,7 @@ module.exports = {
       autoScriptInterface: true,
 
       // Set to true to highlight the expression in the expression picker
-      highlight: true,
+      highlight: false,
 
       // Set to true to hide the expression in the interface. False by default if not specified.
       deprecated: false,

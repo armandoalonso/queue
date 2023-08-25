@@ -8,6 +8,8 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
 
       this.items = [];
       this.dequeuedValue = null;
+      this.lastItem = null;
+      this.lastItemQueued = null;
     }
 
     Enqueue(value) {
@@ -19,15 +21,20 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       const index = this.items.findIndex((x) => x.piority < piority);
       if (index === -1) {
         this.items.push(item);
+      } else {
+        this.items.splice(index, 0, item);
       }
-      this.items.splice(index, 0, item);
+      this.lastItemQueued = item;
+      this.Trigger(C3.Plugins.piranha305_queue.Cnds.OnItemQueued);
     }
 
     Dequeue() {
       if (this.Size() > 0) {
         this.dequeuedValue = this.items.shift().value;
+        this.Trigger(C3.Plugins.piranha305_queue.Cnds.OnItemDequeued);
+
         if (this.IsEmpty()) {
-          this.Trigger(C3.Plugin.piranha305_queue.Cnds.OnLastItemDequeued);
+          this.Trigger(C3.Plugins.piranha305_queue.Cnds.OnLastItemDequeued);
         }
       } 
     }
@@ -55,6 +62,14 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return true;
     }
 
+    OnItemQueued() {
+      return true;
+    }
+
+    OnItemDequeued() {
+      return true;
+    }
+
     Size() {
       return this.items.length;
     }
@@ -64,12 +79,34 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
     }
 
     Peek() {
-      return this.items[0].value;
+      if (this.items.length > 0) {
+        return this.items[0].value;
+      }
+      return -1;
+    }
+
+    PeekLast() {
+      return this.items[this.items.length - 1].value;
     }
 
     Pop() {
       this.Dequeue();
       return this.dequeuedValue;
+    }
+
+    LastQueued() {
+      if (this.lastItemQueued) {
+        return this.lastItemQueued.value;
+      }
+      return -1;
+    }
+
+    AsJSON() {
+      return JSON.stringify(this.items);
+    }
+
+    LoadFromJSON(json) {
+      this.items = JSON.parse(json);
     }
 
     Release() {
@@ -78,12 +115,34 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
 
     SaveToJson() {
       return {
-        // data to be saved for savegames
+        items: this.items,
       };
     }
 
     LoadFromJson(o) {
-      // load state for savegames
+      this.items = o.items;
+    }
+
+    GetDebuggerProperties() {
+      return [
+        {
+          title: "Queue",
+          properties: [
+            {
+              name: "$Items",
+              value: this.items.join(", ")
+            },
+            {
+              name: "$Size",
+              value: this.items.length,
+            },
+            {
+              name: "$JSON",
+              value: JSON.stringify(this.items),
+            }
+          ],
+        },
+      ];
     }
 
     Trigger(method) {
