@@ -364,6 +364,24 @@ module.exports = {
       description: "Triggered when an item is dequeued. (can access item from LastDequeuedValue expression)",
       listName: "On item dequeued",
       displayText: "On item dequeued",
+    },
+    LoopQueue: {
+      category: "general",
+      forward: "LoopQueue",
+      autoScriptInterface: true,
+      highlight: false,
+      isLooping: true,
+      params: [
+        {
+          id: "popItems",
+          name: "Pop items",
+          desc: "Pop items from queue, while looping. (removes the items)",
+          type: "boolean",
+        }
+      ],
+      description: "Loop through the queue.",
+      listName: "Loop queue",
+      displayText: "For each item in queue",
     }
     /*
     SampleCondition: {

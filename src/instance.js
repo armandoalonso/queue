@@ -46,6 +46,10 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       }
     }
 
+    LoopQueue(popItems) {
+
+    }
+
     Clear() {
       this.items = [];
     }
