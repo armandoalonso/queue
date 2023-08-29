@@ -16,11 +16,11 @@ module.exports = {
     // "other"
     // "general",
   author: "piranha305",
-  website: "https://www.construct.net",
-  documentation: "https://www.construct.net",
-  description: "A Construct 3 plugin to store and retrieve data in a queue data structure.",
-  // addonUrl: "https://www.construct.net/en/make-games/addons/####/XXXX", // displayed in auto-generated docs
-  // githubUrl: "https://github.com/skymen/XXXX", // displays latest release version in auto-generated docs
+  website: "https://piranha305.itch.io/",
+  documentation: "https://github.com/armandoalonso/queue/blob/master/README.md",
+  description: "A Construct 3 plugin to store and retrieve data in a priority queue data structure.",
+  addonUrl: "https://www.construct.net/en/make-games/addons/1091/queue", // displayed in auto-generated docs
+  githubUrl: "https://github.com/armandoalonso/queue", // displays latest release version in auto-generated docs
   // icon: "icon.svg", // defaults to "icon.svg" if omitted
   type: "object",   // world, object, dom
   domSideScripts: [
