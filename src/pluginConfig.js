@@ -16,11 +16,11 @@ module.exports = {
     // "other"
     // "general",
   author: "piranha305",
-  website: "https://www.construct.net",
-  documentation: "https://www.construct.net",
-  description: "A Construct 3 plugin to store and retrieve data in a queue data structure.",
-  // addonUrl: "https://www.construct.net/en/make-games/addons/####/XXXX", // displayed in auto-generated docs
-  // githubUrl: "https://github.com/skymen/XXXX", // displays latest release version in auto-generated docs
+  website: "https://piranha305.itch.io/",
+  documentation: "https://github.com/armandoalonso/queue/blob/master/README.md",
+  description: "A Construct 3 plugin to store and retrieve data in a priority queue data structure.",
+  addonUrl: "https://www.construct.net/en/make-games/addons/1091/queue", // displayed in auto-generated docs
+  githubUrl: "https://github.com/armandoalonso/queue", // displays latest release version in auto-generated docs
   // icon: "icon.svg", // defaults to "icon.svg" if omitted
   type: "object",   // world, object, dom
   domSideScripts: [
@@ -205,7 +205,7 @@ module.exports = {
     },
     LoadFromJSON: {
       category: "general",
-      forward: "LoadFromJSON",
+      forward: "LoadDataFromJSON",
       autoScriptInterface: true,
       highlight: false,
       params: [
@@ -364,6 +364,24 @@ module.exports = {
       description: "Triggered when an item is dequeued. (can access item from LastDequeuedValue expression)",
       listName: "On item dequeued",
       displayText: "On item dequeued",
+    },
+    LoopQueue: {
+      category: "general",
+      forward: "LoopQueue",
+      autoScriptInterface: true,
+      highlight: false,
+      isLooping: true,
+      params: [
+        {
+          id: "popItems",
+          name: "Pop items",
+          desc: "Pop items from queue, while looping. (removes the items)",
+          type: "boolean",
+        }
+      ],
+      description: "Loop through the queue.",
+      listName: "Loop queue",
+      displayText: "For each item in queue (pop items: [i]{0}[/i])",
     }
     /*
     SampleCondition: {
@@ -524,7 +542,16 @@ module.exports = {
       params: [],
       returnType: "string",
       description: "Returns the queue as a JSON string.",
-    }
+    },
+    LoopItem: {
+      category: "general",
+      forward: "LoopItem",
+      autoScriptInterface: true,
+      highlight: false,
+      params: [],
+      returnType: "any",
+      description: "Returns the current item in the queue. (while looping)",
+    },
     /*
     SampleExpression: {
       // The category of the action as it appears in the expression picker
