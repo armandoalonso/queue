@@ -10,6 +10,7 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this.dequeuedValue = null;
       this.lastItem = null;
       this.lastItemQueued = null;
+      this.loopItem = null;
     }
 
     Enqueue(value) {
@@ -44,10 +45,6 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         const j = Math.floor(Math.random() * (i + 1));
         [this.items[i], this.items[j]] = [this.items[j], this.items[i]];
       }
-    }
-
-    LoopQueue(popItems) {
-
     }
 
     Clear() {
@@ -109,9 +106,46 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return JSON.stringify(this.items);
     }
 
-    LoadFromJSON(json) {
+    LoadDataFromJSON(json) {
       this.items = JSON.parse(json);
     }
+
+    _DoForEachTrigger(eventSheetManager, currentEvent, solModifiers, oldFrame, newFrame) {
+      eventSheetManager.PushCopySol(solModifiers);
+      currentEvent.Retrigger(oldFrame, newFrame);
+      eventSheetManager.PopSol(solModifiers)
+    }
+
+    LoopQueue(popItems) {
+      const runtime = this._runtime;
+      const eventSheetManager = runtime.GetEventSheetManager();
+      const currentEvent = runtime.GetCurrentEvent();
+      const solModifiers = currentEvent.GetSolModifiers();
+      const eventStack = runtime.GetEventStack();
+      const oldFrame = eventStack.GetCurrentStackFrame();
+      const newFrame = eventStack.Push(currentEvent);
+      const loopStack = eventSheetManager.GetLoopStack();
+      const loop = loopStack.Push();
+
+      runtime.SetDebuggingEnabled(false); 
+
+      for(let i = 0; i < this.items.length; i++) {
+        
+        this.loopItem = popItems ? this.Pop() : this.items[i].value;
+        loop.SetIndex(i);
+        this._DoForEachTrigger(eventSheetManager, currentEvent, solModifiers, oldFrame, newFrame);
+      }
+
+      runtime.SetDebuggingEnabled(true);
+      eventStack.Pop();
+      loopStack.Pop();
+      return false;
+    }
+
+    LoopItem() {
+      return this.loopItem;
+    }
+
 
     Release() {
       super.Release();

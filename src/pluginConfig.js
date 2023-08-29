@@ -205,7 +205,7 @@ module.exports = {
     },
     LoadFromJSON: {
       category: "general",
-      forward: "LoadFromJSON",
+      forward: "LoadDataFromJSON",
       autoScriptInterface: true,
       highlight: false,
       params: [
@@ -381,7 +381,7 @@ module.exports = {
       ],
       description: "Loop through the queue.",
       listName: "Loop queue",
-      displayText: "For each item in queue",
+      displayText: "For each item in queue (pop items: [i]{0}[/i])",
     }
     /*
     SampleCondition: {
@@ -542,7 +542,16 @@ module.exports = {
       params: [],
       returnType: "string",
       description: "Returns the queue as a JSON string.",
-    }
+    },
+    LoopItem: {
+      category: "general",
+      forward: "LoopItem",
+      autoScriptInterface: true,
+      highlight: false,
+      params: [],
+      returnType: "any",
+      description: "Returns the current item in the queue. (while looping)",
+    },
     /*
     SampleExpression: {
       // The category of the action as it appears in the expression picker
