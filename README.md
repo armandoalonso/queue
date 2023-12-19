@@ -5,7 +5,7 @@ A Construct 3 plugin to store and retrieve data in a priority queue data structu
 Author: piranha305 <br>
 Website: https://piranha305.itch.io/ <br>
 Addon Url: https://www.construct.net/en/make-games/addons/1091/queue <br>
-Download Latest Version : [Version: 1.0.0.0](https://github.com/armandoalonso/queue/releases/latest) <br>
+Download Latest Version : [Version: 1.0.0.1](https://github.com/armandoalonso/queue/releases/latest) <br>
 <sub>Made using [c3ide2-framework](https://github.com/ConstructFund/c3ide2-framework) </sub><br>
 
 ## Table of Contents
