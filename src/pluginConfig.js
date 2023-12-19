@@ -3,7 +3,7 @@ module.exports = {
   addonType: "plugin",
   id: "piranha305_queue",
   name: "Queue",
-  version: "1.0.0.0",
+  version: "1.0.0.1",
   category:
     // "3d",
     "data-and-storage",
@@ -58,7 +58,7 @@ module.exports = {
       MustPreDraw: false,
 
       // object only
-      IsSingleGlobal: true,
+      IsSingleGlobal: false,
 
       // world and object
       CanBeBundled: true,
